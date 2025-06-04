@@ -1,0 +1,30 @@
+{{!< default}}
+
+<article class="page-full">
+    {{!-- Only show title and feature image if @page.show_title_and_feature_image is true --}}
+    {{#if @page.show_title_and_feature_image}}
+        <header class="page-full-header">
+            <h1 class="page-full-title">{{title}}</h1>
+        </header>
+        
+        {{#if feature_image}}
+        <figure class="page-feature-image">
+            <img src="{{feature_image}}" alt="{{title}}" />
+            {{#if feature_image_caption}}
+                <figcaption>{{feature_image_caption}}</figcaption>
+            {{/if}}
+        </figure>
+        {{/if}}
+    {{/if}}
+    
+    <section class="page-full-content">
+        {{content}}
+    </section>
+    
+    {{!-- Page feature: Comments --}}
+    {{#if comments}}
+        <section class="article-comments">
+            {{comments}}
+        </section>
+    {{/if}}
+</article>

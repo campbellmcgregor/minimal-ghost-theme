@@ -1,0 +1,16 @@
+{
+  "name": "minimal-blog",
+  "description": "A minimalist Ghost theme for blogging",
+  "version": "0.1.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Mathew Duggan",
+    "email": "mat@matduggan.com"
+  },
+  "config": {
+    "posts_per_page": 10
+  }
+}

@@ -1,0 +1,79 @@
+{{!< default}}
+
+{{#post}}
+<article class="post-full {{post_class}}">
+    <header class="post-full-header">
+        <h1 class="post-full-title">{{#if title}}{{title}}{{else}}Untitled Post{{/if}}</h1>
+        <div class="post-full-meta">
+            {{#if published_at}}
+                <time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="MMMM DD, YYYY"}}</time>
+            {{/if}}
+            {{#primary_tag}}
+                <span class="post-full-tags">in <a href="{{url absolute="true"}}">{{name}}</a></span>
+            {{/primary_tag}}
+        </div>
+    </header>
+
+    {{#if feature_image}}
+    <figure class="post-full-image">
+        <img srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w"
+             sizes="(max-width: 1000px) 400px, 700px"
+             src="{{img_url feature_image size="xl"}}"
+             alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+             {{#if @first}}fetchpriority="high"{{else}}loading="lazy"{{/if}}
+             decoding="async" />
+        {{#if feature_image_caption}}
+            <figcaption>{{feature_image_caption}}</figcaption>
+        {{/if}}
+    </figure>
+    {{/if}}
+    
+    <section class="post-full-content">
+        <div class="post-content">
+            {{content}}
+        </div>
+    </section>
+
+    {{!-- Email subscribe form at the bottom of the page --}}
+    {{#if @site.members_enabled}}
+    <section class="post-full-subscribe">
+        {{subscribe_form 
+            form_class="post-subscribe-form"
+            button_class="post-subscribe-button"
+            placeholder="Your email address"
+        }}
+    </section>
+    {{/if}}
+
+    {{!-- Related posts --}}
+    {{#get "posts" filter="tags:[{{primary_tag.slug}}]+id:-{{id}}" limit="3" as |related|}}
+        {{#if related}}
+        <aside class="read-more-wrap">
+            <div class="read-more inner">
+                <h3>Read more</h3>
+                <div class="read-more-cards">
+                    {{#foreach related}}
+                    <article class="read-more-card">
+                        <h4><a href="{{url absolute="true"}}">{{title}}</a></h4>
+                        {{#if excerpt}}
+                            <p class="read-more-excerpt">{{excerpt words="30"}}</p>
+                        {{/if}}
+                    </article>
+                    {{/foreach}}
+                </div>
+            </div>
+        </aside>
+        {{/if}}
+    {{/get}}
+
+    {{!-- Post comments --}}
+    {{#if comments}}
+        <section class="article-comments">
+            {{comments}}
+        </section>
+    {{/if}}
+</article>
+{{/post}}

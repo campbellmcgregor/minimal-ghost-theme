@@ -1,0 +1,25 @@
+{{!< default}}
+<header class="site-header" role="banner">
+    <div class="site-header-content">
+        <h1 class="site-title"><a href="{{@site.url}}" aria-label="Home">{{@site.title}}</a></h1>
+        {{#if @site.description}}
+            <p class="site-description">{{@site.description}}</p>
+        {{/if}}
+    </div>
+    <div class="site-header-items">
+        <nav class="site-nav" role="navigation" aria-label="Main navigation">
+            <ul class="nav-links">
+                {{#foreach navigation}}
+                <li><a href="{{url}}" {{#if current}}aria-current="page"{{/if}}>{{label}}</a></li>
+                {{/foreach}}
+                <li><a href="{{@site.url}}/rss/" class="nav-rss" aria-label="RSS Feed">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="6.18" cy="17.82" r="2.18"/>
+                        <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+                    </svg>
+                    <span class="sr-only">RSS Feed</span>
+                </a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
