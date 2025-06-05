@@ -1,7 +1,7 @@
 {
   "name": "minimal-blog",
   "description": "A minimalist Ghost theme for blogging",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "ghost": ">=5.0.0"
   },

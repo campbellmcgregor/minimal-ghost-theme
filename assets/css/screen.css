@@ -602,19 +602,21 @@ pre:not([data-language])::before {
     gap: 0.8rem;
     padding: 0.8rem 1.6rem;
     background: var(--color-link);
-    color: #fff;
+    color: #f8fafc;
     border-radius: 4px;
     font-family: var(--font-sans);
     font-size: 1.4rem;
     font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .rss-button:hover {
     background-color: color-mix(in srgb, var(--color-link) 80%, black);
     text-decoration: none;
-    color: #fff;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .rss-button svg {

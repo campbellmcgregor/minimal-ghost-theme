@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title}}</title>
     
+    {{!-- Primary Meta Tags --}}
+    <meta name="title" content="{{meta_title}}">
+    <meta name="description" content="{{meta_description}}">
+    {{#if @site.keywords}}<meta name="keywords" content="{{@site.keywords}}">{{/if}}
+    
+    {{!-- Open Graph / Facebook --}}
+    <meta property="og:site_name" content="{{@site.title}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{@site.url}}{{url}}">
+    <meta property="og:title" content="{{meta_title}}">
+    <meta property="og:description" content="{{meta_description}}">
+    {{#if feature_image}}
+        <meta property="og:image" content="{{img_url feature_image}}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+    {{/if}}
+    
+    {{!-- Twitter --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{@site.url}}{{url}}">
+    <meta name="twitter:title" content="{{meta_title}}">
+    <meta name="twitter:description" content="{{meta_description}}">
+    {{#if feature_image}}
+        <meta name="twitter:image" content="{{img_url feature_image}}">
+    {{/if}}
+    
     {{!-- DNS prefetch and preconnect --}}
     <link rel="dns-prefetch" href="{{@site.url}}">
     <link rel="preconnect" href="{{@site.url}}" crossorigin>
@@ -31,12 +57,51 @@
     
     <link rel="stylesheet" href="{{asset "css/screen.css"}}">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for {{@site.title}}" href="{{@site.url}}/rss/" />
+    <link rel="canonical" href="{{@site.url}}{{url}}" />
     
     {{!-- Add native lazy loading support detection --}}
     <script>
         if ('loading' in HTMLImageElement.prototype) {
             document.documentElement.classList.add('loading-lazy');
         }
+    </script>
+    
+    {{!-- Structured Data / Schema.org --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{{#is "post"}}BlogPosting{{else}}WebSite{{/is}}",
+        "url": "{{@site.url}}{{url}}",
+        "name": "{{meta_title}}",
+        {{#is "post"}}
+            "headline": "{{title}}",
+            "description": "{{excerpt}}",
+            {{#if published_at}}
+                "datePublished": "{{date published_at format="YYYY-MM-DD"}}",
+                "dateModified": "{{date updated_at format="YYYY-MM-DD"}}",
+            {{/if}}
+            {{#if feature_image}}
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "{{img_url feature_image}}",
+                    "width": 1200,
+                    "height": 630
+                },
+            {{/if}}
+            "author": {
+                "@type": "Person",
+                "name": "{{primary_author.name}}",
+                "url": "{{@site.url}}/author/{{primary_author.slug}}"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "{{@site.title}}",
+                "url": "{{@site.url}}"
+            }
+        {{else}}
+            "description": "{{@site.description}}"
+        {{/is}}
+    }
     </script>
     
     {{ghost_head}}
